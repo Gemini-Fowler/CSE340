@@ -1,9 +1,9 @@
-/* Mobile-first styles */
+/* Back to the Future-inspired color scheme (mobile-first) */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  background: #fff;
-  color: #222;
+  background: #222;
+  color: #f8f8f8;
 }
 
 .header-top {
@@ -11,19 +11,22 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  background: #141414;
 }
 
 .site-title {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: bold;
   text-decoration: none;
-  color: #222;
+  color: #ffb300; /* Gold/Yellow */
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #ff3c00, 4px 4px 0 #00e6ff;
 }
 
 .account-link {
   font-size: 1rem;
   text-decoration: underline;
-  color: #222;
+  color: #00e6ff; /* Neon blue */
 }
 
 .main-nav {
@@ -31,8 +34,9 @@ body {
   gap: 1rem;
   list-style: none;
   padding: 0.5rem 1rem;
-  background: #222;
+  background: #141414;
   margin: 0;
+  border-bottom: 3px solid #ff3c00;
 }
 
 .main-nav li a {
@@ -40,14 +44,18 @@ body {
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
 }
 
 .main-nav li a:hover {
-  background: #0078d4;
+  background: #ff3c00;
+  color: #fff;
 }
 
 .main-content {
   padding: 1rem;
+  background: #222;
 }
 
 .hero {
@@ -65,31 +73,46 @@ body {
 }
 
 .delorean-title {
-  color: #0078d4;
-  font-size: 1.3rem;
+  color: #ffb300;
+  font-size: 1.4rem;
+  text-shadow: 1px 1px 0 #ff3c00, 2px 2px 0 #00e6ff;
 }
 
 .delorean-features {
   list-style: none;
   padding: 0;
   margin: 0.5rem 0 1rem 0;
+  color: #00e6ff;
+  font-weight: 500;
 }
 
 .btn-primary {
   display: inline-block;
-  background: #0078d4;
-  color: #fff;
+  background: linear-gradient(90deg, #ff3c00 0%, #ffb300 100%);
+  color: #222;
   padding: 0.7rem 1.5rem;
   border-radius: 4px;
   text-decoration: none;
   font-weight: bold;
   margin-top: 0.5rem;
+  box-shadow: 0 2px 8px #ffb30055;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #00e6ff 0%, #ffb300 100%);
+  color: #141414;
 }
 
 .delorean-img {
   max-width: 100%;
   height: auto;
   margin-top: 1rem;
+  border: 3px solid #ff3c00;
+  border-radius: 10px;
+  background: #141414;
+  box-shadow: 0 0 20px #00e6ff55;
 }
 
 .upgrades-reviews {
@@ -101,6 +124,8 @@ body {
 .upgrades h2, .reviews h2 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  color: #ffb300;
+  text-shadow: 1px 1px 0 #ff3c00;
 }
 
 .upgrades-grid {
@@ -114,8 +139,18 @@ body {
   flex-direction: column;
   align-items: center;
   text-decoration: underline;
-  color: #0078d4;
+  color: #00e6ff;
   font-size: 0.95rem;
+  font-weight: bold;
+  background: #141414;
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.upgrades-grid a:hover {
+  background: #ff3c00;
+  color: #fff;
 }
 
 .upgrades-grid img {
@@ -123,19 +158,22 @@ body {
   height: 60px;
   object-fit: contain;
   margin-bottom: 0.5rem;
+  filter: drop-shadow(0 0 8px #00e6ff88);
 }
 
 .reviews ul {
   padding-left: 1.2rem;
+  color: #fff;
 }
 
 footer {
   text-align: left;
   padding: 1rem;
   font-size: 0.95rem;
-  color: #222;
-  background: #f2f2f2;
+  color: #ffb300;
+  background: #141414;
   margin-top: 2rem;
+  border-top: 3px solid #ff3c00;
 }
 
 /* Large screens */
@@ -143,10 +181,11 @@ footer {
   .main-content {
     max-width: 950px;
     margin: 2rem auto;
-    border: 5px solid #0078d4;
-    background: #fff;
-    box-shadow: 0 0 10px #ccc;
+    border: 5px solid #ff3c00;
+    background: #222;
+    box-shadow: 0 0 20px #00e6ff88;
     padding: 2rem 3rem;
+    border-radius: 18px;
   }
 
   .hero-content {
