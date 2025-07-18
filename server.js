@@ -1,5 +1,7 @@
 const express = require("express")
 
+const baseController = require("./controllers/baseController")
+
 const app = express()
 
 const expressLayouts = require("express-ejs-layouts")
@@ -15,9 +17,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(express.static('public'));
 
 // Route to deliver the index view
-app.get("/", function (req, res) {
-  res.render("indexx", { title: "Home" });
-});
+app.get("/", baseController.buildHome);
 
 /* ******************************************
  * Server host name and port
