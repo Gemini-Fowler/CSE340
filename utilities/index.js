@@ -1,28 +1,18 @@
-const invModel = require("../models/inventory-model")
-const Util = {}
+const buildVehicleDetail = (vehicle) => {
+  return `
+  <div class="vehicle-detail">
+    <img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}" class="vehicle-img" />
+    <div class="vehicle-info">
+      <h1>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h1>
+      <h2>Price: $${vehicle.inv_price.toLocaleString()}</h2>
+      <p><strong>Mileage:</strong> ${vehicle.inv_miles.toLocaleString()} miles</p>
+      <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+      <p>${vehicle.inv_description}</p>
+    </div>
+  </div>`;
+};
 
-/* ************************
- * Constructs the nav HTML unordered list
- ************************** */
-Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  console.log(data) 
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
-  data.rows.forEach((row) => {
-    list += "<li>"
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
-  list += "</ul>"
-  return list
-}
-
-module.exports = Util 
+module.exports = {
+  // other exports…
+  buildVehicleDetail,
+};
