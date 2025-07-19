@@ -19,10 +19,6 @@ app.use(express.static('public'));
 
 // Route to deliver the index view
 app.get("/", baseController.buildHome);
-// File Not Found Route - must be last route in list
-app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
 
 
 /* ***********************
@@ -50,4 +46,10 @@ const PORT = 3000
 * *********************** */
 app.listen(PORT, () => {
   console.log(`trial app listening on ${HOST}:${PORT}`)
+})
+
+
+// File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
