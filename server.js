@@ -15,7 +15,7 @@ const app = express();
 /* ***********************
  * Middleware
  * ************************/
- app.use(session({
+app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
     pool,
@@ -26,14 +26,13 @@ const app = express();
   name: 'sessionId',
 }))
 
-const accountRoute = require("./routes/accountRoute");
 
 // Inside app.use section
 app.use("/account", accountRoute);
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
@@ -56,7 +55,7 @@ app.use(express.static("public"));
 app.get("/", baseController.buildHome);
 app.use("/inventory", invRoutes);
 app.use("/error", errorRoute);
-app.use("/account", accountRoute);
+app.use("/account", require("./routes/accountRoute"))
 
 /* ******************************************
  * File Not Found Route (404)

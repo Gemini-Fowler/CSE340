@@ -53,7 +53,18 @@ const buildVehicleDetail = (vehicle) => {
   `;
 };
 
+/**
+ * Middleware to catch errors in async controller functions
+ */
+function handleErrors(fn) {
+  return function (req, res, next) {
+    return Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}
+
+
 module.exports = {
   getNav,
-  buildVehicleDetail
+  buildVehicleDetail,
+  handleErrors,
 };
