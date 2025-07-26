@@ -3,7 +3,7 @@ const pool = require('./database/')
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const accountRoute = require("./routes/accountRoute");
-
+const bodyParser = require("body-parser")
 const baseController = require("./controllers/baseController");
 const utilities = require("./utilities");
 const invRoutes = require("./routes/inventoryRoute");
@@ -26,6 +26,8 @@ app.use(session({
   name: 'sessionId',
 }))
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // Inside app.use section
 app.use("/account", accountRoute);

@@ -423,3 +423,15 @@ footer {
 .password-toggle button:hover {
   background: #ffb300;
 }
+
+/* 📋 Password requirements styling */
+.password-requirements {
+  font-size: 0.9rem;
+  color: #00e6ff;
+  margin-bottom: 0.5rem;
+  background: #141414;
+  padding: 0.5rem;
+  border-left: 4px solid #ff3c00;
+  border-radius: 6px;
+  box-shadow: 0 0 8px #00e6ff88;
+}

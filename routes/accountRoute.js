@@ -3,10 +3,19 @@ const router = express.Router();
 const accountController = require("../controllers/accountController");
 const utilities = require("../utilities/");
 
+const regValidate = require("../utilities/account-validation")
+
+router.post(
+  "/register",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accountController.registerAccount)
+)
+
 // Route to display vehicle details by ID
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get("/login", utilities.handleErrors(accountController.loginAccount));
 
 // Route to handle registration view
-router.get("/register", utilities.handleErrors(accountController.buildRegister));
+router.get("/register", utilities.handleErrors(accountController.registerAccount));
 
 module.exports = router;
