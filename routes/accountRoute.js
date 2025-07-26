@@ -18,4 +18,12 @@ router.get("/login", utilities.handleErrors(accountController.loginAccount));
 // Route to handle registration view
 router.get("/register", utilities.handleErrors(accountController.registerAccount));
 
+// Process the login attempt
+router.post(
+  "/login",
+  (req, res) => {
+    res.status(200).send('login process')
+  }
+)
+
 module.exports = router;
