@@ -2,6 +2,8 @@ const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
 const accountModel = require("../models/account-model")
+const regValidate = require("../utilities/account-validation");
+
 
 /* **********************************
  * Registration Data Validation Rules
@@ -72,5 +74,13 @@ validate.checkRegData = async (req, res, next) => {
   }
   next()
 }
+
+router.post(
+  "/register",
+  regValidate.registrationRules(),
+  regValidate.checkRegData,
+  accountController.registerAccount
+);
+
 
 module.exports = validate
