@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Classification</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <%- nav %>
+
+  <main>
+    <h1>Add New Classification</h1>
+    <p>Classification names must not contain spaces or special characters.</p>
+
+    <% if (message) { %>
+      <div class="flash-message"><%= message %></div>
+    <% } %>
+
+    <% if (errors) { %>
+      <ul class="notice">
+        <% errors.array().forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <form action="/inv/add-classification" method="post">
+      <label for="classification_name">Classification Name</label>
+      <input 
+        type="text" 
+        id="classification_name" 
+        name="classification_name" 
+        required 
+        pattern="^[A-Za-z0-9]+$" 
+        title="No spaces or special characters allowed"
+        value="<%= typeof classification_name != 'undefined' ? classification_name : '' %>" /> <!-- ✅ Sticky input logic -->
+
+      <button type="submit">Add Classification</button>
+    </form>
+  </main>
+</body>
+</html>

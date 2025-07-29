@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventory Management</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <%- nav %> 
+
+  <main>
+    <h1>Inventory Management</h1>
+
+    <% if (message) { %>
+      <div class="flash-message"><%= message %></div>
+    <% } %>
+
+    <!-- 🧭 Management Links -->
+    <ul class="management-links">
+      <li>
+        <!-- 📝 Link to Add Classification -->
+        <!-- ✅ This hits your route/controller for delivering the classification form -->
+        <a href="/inv/add-classification">Add New Classification</a>
+      </li>
+      <li>
+        <!-- 🚗 Link to Add Inventory Item -->
+        <!-- ✅ This hits your route/controller for delivering the inventory form -->
+        <a href="/inv/add-inventory">Add New Inventory</a>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>
