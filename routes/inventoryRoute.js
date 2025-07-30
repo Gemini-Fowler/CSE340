@@ -1,22 +1,35 @@
 const express = require("express");
 const router = express.Router();
 const inventoryController = require("../controllers/inventoryController");
+const invValidate = require("../utilities/inventory-validation"); // Add this if missing
+const invValidation = require("../utilities/inventory-validation"); // Same here
 
 // Route to display vehicle details by ID
 router.get("/detail/:invId", inventoryController.buildDetailView);
-router.get("/", inventoryController.buildManagement)
-router.get("/add-classification", invController.buildAddClassification)
-router.get("/add-inventory", invController.buildAddInventory);
 
+// Management dashboard
+router.get("/", inventoryController.buildManagement);
 
+// Classification form
+router.get("/add-classification", inventoryController.buildAddClassification);
+
+// Inventory form
+router.get("/add-inventory", inventoryController.buildAddInventory);
+
+// Classification insert
 router.post(
   "/add-classification",
   invValidate.classificationRules(),
   invValidate.checkClassData,
-  invController.insertClassification
-)
+  inventoryController.insertClassification
+);
 
-router.post("/add-inventory", invValidation.addInventoryRules(), invValidation.checkAddInventoryData, invController.addInventory);
-
+// Vehicle insert
+router.post(
+  "/add-inventory",
+  invValidation.addInventoryRules(),
+  invValidation.checkAddInventoryData,
+  inventoryController.addInventory
+);
 
 module.exports = router;
