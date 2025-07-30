@@ -1,4 +1,4 @@
-const pool = require("../database/db-sql-code.sql");
+const pool = require("../database");
 
 const getVehicleById = async (invId) => {
   try {
@@ -12,16 +12,14 @@ const getVehicleById = async (invId) => {
 
 async function addClassification(classification_name) {
   try {
-    const sql = "INSERT INTO classification (classification_name) VALUES ($1)"
-    const result = await pool.query(sql, [classification_name])
-    return result.rowCount
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1)";
+    const result = await pool.query(sql, [classification_name]);
+    return result.rowCount;
   } catch (error) {
-    console.error("Error adding classification:", error)
-    return null
+    console.error("Error adding classification:", error);
+    return null;
   }
 }
-
-const pool = require("../database");
 
 async function addInventoryItem(vehicle) {
   try {
@@ -52,13 +50,7 @@ async function addInventoryItem(vehicle) {
   }
 }
 
-
-
-
-
-
-
-module.exports = { 
+module.exports = {
   getVehicleById,
   addClassification,
   addInventoryItem
