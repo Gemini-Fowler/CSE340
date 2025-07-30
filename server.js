@@ -90,3 +90,7 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`trial app listening on ${HOST}:${PORT}`);
 });
+
+"scripts"; {
+  "start"; "node app.js"
+}
