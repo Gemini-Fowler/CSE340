@@ -1,6 +1,8 @@
-const { body, validationResult } = require("express-validator")
-const invValidate = {}
+const { body, validationResult } = require("express-validator");
+const invModel = require("../models/inventory-model");
+const invValidate = {};
 
+// Classification rules
 invValidate.classificationRules = () => {
   return [
     body("classification_name")
@@ -9,30 +11,30 @@ invValidate.classificationRules = () => {
       .notEmpty()
       .isAlphanumeric()
       .withMessage("Classification must not contain spaces or special characters.")
-  ]
-}
+  ];
+};
 
+// Classification validation handler
 invValidate.checkClassData = async (req, res, next) => {
-  const { classification_name } = req.body
-  const errors = validationResult(req)
+  const { classification_name } = req.body;
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    let nav = await require("../utilities").getNav()
+    const nav = await require("../utilities").getNav();
     res.render("inventory/add-classification", {
       title: "Add Classification",
       nav,
       errors,
       message: req.flash("notice"),
       classification_name
-    })
-    return
+    });
+    return;
   }
-  next()
-}
+  next();
+};
 
-const { body, validationResult } = require("express-validator");
-
-const addInventoryRules = () => {
+// Inventory validation rules
+invValidate.addInventoryRules = () => {
   return [
     body("inv_make").trim().isLength({ min: 1 }).withMessage("Make is required."),
     body("inv_model").trim().isLength({ min: 1 }).withMessage("Model is required."),
@@ -47,15 +49,19 @@ const addInventoryRules = () => {
   ];
 };
 
-const checkAddInventoryData = async (req, res, next) => {
+// Inventory validation handler
+invValidate.checkAddInventoryData = async (req, res, next) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
-    const classifications = await invModel.getClassifications(); // for dropdown
+    const classifications = await invModel.getClassifications();
+    const nav = await require("../utilities").getNav();
     res.render("inventory/add-inventory", {
       title: "Add New Vehicle",
-      errors: errors.array(),
+      nav,
+      errors,
       message: "Please correct the errors below.",
-      ...req.body, // repopulate form data
+      ...req.body,
       classifications
     });
     return;
@@ -63,14 +69,4 @@ const checkAddInventoryData = async (req, res, next) => {
   next();
 };
 
-
-
-
-
-
-
-module.exports = {
-    invValidate,
-    addInventoryRules,
-    checkAddInventoryData
-};
+module.exports = invValidate;
