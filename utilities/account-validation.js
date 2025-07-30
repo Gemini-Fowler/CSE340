@@ -1,9 +1,8 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
-const validate = {}
 const accountModel = require("../models/account-model")
-const regValidate = require("../utilities/account-validation");
 
+const validate = {}
 
 /* **********************************
  * Registration Data Validation Rules
@@ -30,7 +29,7 @@ validate.registrationRules = () => {
     body("account_email")
       .trim()
       .isEmail()
-      .normalizeEmail() // refer to validator.js docs
+      .normalizeEmail()
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
         const emailExists = await accountModel.checkExistingEmail(account_email)
@@ -74,13 +73,5 @@ validate.checkRegData = async (req, res, next) => {
   }
   next()
 }
-
-router.post(
-  "/register",
-  regValidate.registrationRules(),
-  regValidate.checkRegData,
-  accountController.registerAccount
-);
-
 
 module.exports = validate
