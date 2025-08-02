@@ -1,5 +1,6 @@
 const inventoryModel = require("../models/inventory-model");
 const utilities = require("../utilities");
+const { validationResult } = require("express-validator");
 
 const invController = {};
 
@@ -44,28 +45,47 @@ invController.buildAddClassification = async (req, res) => {
   });
 };
 
-// Insert new classification
+// Insert new classification with validation
 invController.insertClassification = async (req, res) => {
-  const nav = await utilities.getNav();
+  const errors = validationResult(req);
   const { classification_name } = req.body;
+  const nav = await utilities.getNav();
 
-  const result = await inventoryModel.addClassification(classification_name);
-
-  if (result) {
-    req.flash("notice", `Successfully added "${classification_name}" classification.`);
-    const nav = await utilities.getNav();
-    res.status(201).render("inventory/management", {
-      title: "Inventory Management",
+  if (!errors.isEmpty()) {
+    return res.status(400).render("inventory/add-classification", {
+      title: "Add Classification",
       nav,
-      message: req.flash("notice"),
+      message: null,
+      errors: errors.array()
     });
-  } else {
-    req.flash("notice", "Classification creation failed.");
+  }
+
+  try {
+    const result = await inventoryModel.addClassification(classification_name);
+
+    if (result) {
+      req.flash("notice", `Successfully added "${classification_name}" classification.`);
+      const updatedNav = await utilities.getNav(); // refresh nav to include new classification
+      res.status(201).render("inventory/management", {
+        title: "Inventory Management",
+        nav: updatedNav,
+        message: req.flash("notice"),
+      });
+    } else {
+      res.status(500).render("inventory/add-classification", {
+        title: "Add Classification",
+        nav,
+        message: "Classification creation failed.",
+        errors: null
+      });
+    }
+  } catch (error) {
+    console.error("Insert error:", error);
     res.status(500).render("inventory/add-classification", {
       title: "Add Classification",
       nav,
-      message: req.flash("notice"),
-      classification_name,
+      message: "Server error. Try again later.",
+      errors: null
     });
   }
 };

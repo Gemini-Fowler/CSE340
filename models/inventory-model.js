@@ -50,6 +50,16 @@ async function addInventoryItem(vehicle) {
   }
 }
 
+invModel.addClassification = async (name) => {
+  try {
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1)";
+    const result = await pool.query(sql, [name]);
+    return result.rowCount > 0;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getVehicleById,
   addClassification,

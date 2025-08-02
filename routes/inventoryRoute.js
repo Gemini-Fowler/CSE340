@@ -17,11 +17,16 @@ router.get("/add-classification", inventoryController.buildAddClassification);
 router.get("/add-inventory", inventoryController.buildAddInventory);
 
 // Classification insert
-router.post(
-  "/add-classification",
-  invValidate.classificationRules(),
-  invValidate.checkClassData,
-  inventoryController.insertClassification
+router.post("/add-classification",
+  [
+    check("classification_name")
+      .trim()
+      .isAlphanumeric()
+      .withMessage("Classification name must only contain letters and numbers.")
+      .notEmpty()
+      .withMessage("Classification name is required.")
+  ],
+  invController.insertClassification
 );
 
 // Vehicle insert
