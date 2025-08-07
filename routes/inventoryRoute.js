@@ -1,8 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const inventoryController = require("../controllers/inventoryController");
-const invValidate = require("../utilities/inventory-validation"); // Add this if missing
-const invValidation = require("../utilities/inventory-validation"); // Same here
+const invValidate = require("../utilities/inventory-validation");
+const invValidation = require("../utilities/inventory-validation");
+const utilities = require("../utilities");
+
+// ✅ New route: Returns inventory data as JSON based on classification ID
+router.get("/getInventory/:classification_id", 
+  utilities.handleErrors(inventoryController.getInventoryJSON)
+);
+
+// ✅ Update existing inventory item
+router.post(
+  "/update",
+  invValidation.updateInventoryRules(),
+  invValidation.checkUpdateData,
+  utilities.handleErrors(inventoryController.updateInventory)
+);
 
 // Route to display vehicle details by ID
 router.get("/detail/:invId", inventoryController.buildDetailView);
@@ -26,7 +40,7 @@ router.post("/add-classification",
       .notEmpty()
       .withMessage("Classification name is required.")
   ],
-  invController.insertClassification
+  inventoryController.insertClassification
 );
 
 // Vehicle insert

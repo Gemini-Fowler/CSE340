@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Add New Vehicle</title>
+  <title>Edit <%= inv_make %> <%= inv_model %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/css/styles.css" />
   <script>
-    // Simple client-side validation
     function validateForm() {
       const requiredFields = [
         "inv_make", "inv_model", "inv_year", "inv_description",
@@ -28,7 +27,7 @@
   <%- nav %>
 
   <main>
-    <h1>Add New Vehicle</h1>
+    <h1>Edit <%= inv_make %> <%= inv_model %></h1>
 
     <% if (message) { %>
       <div class="flash-message"><%= message %></div>
@@ -42,9 +41,11 @@
       </ul>
     <% } %>
 
-    <form action="/inv/add-inventory" method="POST" onsubmit="return validateForm()">
+    <form action="/inv/update" method="post" onsubmit="return validateForm()">
+      <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
       <label for="classification_id">Classification:</label>
-      <%- classificationList %>
+      <%- classificationSelect %>
 
       <label for="inv_make">Make:</label>
       <input type="text" id="inv_make" name="inv_make" required value="<%= inv_make || '' %>">
@@ -73,7 +74,7 @@
       <label for="inv_color">Color:</label>
       <input type="text" id="inv_color" name="inv_color" required value="<%= inv_color || '' %>">
 
-      <button type="submit">Add Vehicle</button>
+      <button type="submit">Update Vehicle</button>
     </form>
   </main>
 </body>

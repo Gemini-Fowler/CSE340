@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navigation') %>
+<main>
+  <h1>Account Management</h1>
+  
+  <% if (message) { %>
+    <p class="flash-message"><%= message %></p>
+  <% } %>
+
+  <% if (errors && errors.length > 0) { %>
+    <ul class="error-list">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <p>You're logged in.</p>
+</main>
+<%- include('../partials/footer') %>

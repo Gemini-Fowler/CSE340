@@ -9,7 +9,7 @@ const utilities = require("./utilities");
 const invRoutes = require("./routes/inventoryRoute");
 const errorRoute = require("./routes/errorRoute");
 const errorHandler = require("./utilities/errorHandler");
-
+const cookieParser = require("cookie-parser")
 const app = express();
 
 /* ***********************
@@ -38,6 +38,8 @@ app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 /* ******************************************
  * View Engine and Templates
