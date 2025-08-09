@@ -1,8 +1,8 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const accountModel = require("../models/account-model")
+const accountValidation = require("../utilities/account-validation")
 
-const validate = {}
 
 /* **********************************
  * Registration Data Validation Rules
@@ -73,5 +73,36 @@ validate.checkRegData = async (req, res, next) => {
   }
   next()
 }
+
+const updateAccountRules = () => {
+  return [
+    body("account_firstname").trim().notEmpty().withMessage("First name is required."),
+    body("account_lastname").trim().notEmpty().withMessage("Last name is required."),
+    body("account_email")
+      .trim()
+      .isEmail().withMessage("Valid email required.")
+      .custom(async (email, { req }) => {
+        const account = await accountModel.getAccountByEmail(email);
+        if (account && account.account_id != req.body.account_id) {
+          throw new Error("Email already in use.");
+        }
+      }),
+  ];
+};
+
+const updatePasswordRules = () => {
+  return [
+    body("account_password")
+      .trim()
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      }).withMessage("Password must be strong (12+ chars, upper/lowercase, number, symbol)."),
+  ];
+};
+
 
 module.exports = validate

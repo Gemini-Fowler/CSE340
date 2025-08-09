@@ -44,4 +44,33 @@ async function getAccountByEmail (account_email) {
   }
 }
 
-module.exports = { registerAccount };
+async function updateAccount(account_id, firstname, lastname, email) {
+  return await pool.query(
+    `UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4`,
+    [firstname, lastname, email, account_id]
+  ).then(res => res.rowCount).catch(err => null);
+}
+
+
+async function updatePassword(account_id, hashedPassword) {
+  return await pool.query(
+    `UPDATE account SET account_password = $1 WHERE account_id = $2`,
+    [hashedPassword, account_id]
+  ).then(res => res.rowCount).catch(err => null);
+}
+
+
+async function getAccountById(account_id) {
+  return await pool.query("SELECT * FROM account WHERE account_id = $1", [account_id])
+    .then(res => res.rows[0])
+    .catch(err => null);
+}
+
+
+
+
+
+module.exports = { registerAccount,
+  updateAccount,
+  updatePassword,
+ };
