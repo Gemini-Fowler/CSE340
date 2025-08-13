@@ -36,16 +36,16 @@ router.get("/update/:accountId", utilities.checkLogin, accountController.buildUp
 
 // POST route to handle account info update
 router.post("/update",
-  accountValidation.updateAccountRules(),
-  accountValidation.checkUpdateData,
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateData,
   utilities.checkData,
   accountController.updateAccount
 );
 
 // POST route to handle password change
 router.post("/update-password",
-  accountValidation.updatePasswordRules(),
-  accountValidation.checkPasswordData,
+  regValidate.updatePasswordRules(),
+  regValidate.checkPasswordData,
   accountController.updatePassword,
   utilities.checkData
 );

@@ -1,31 +1,24 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const accountModel = require("../models/account-model")
-const accountValidation = require("../utilities/account-validation")
+const invValidate = {};
 
 
-/* **********************************
- * Registration Data Validation Rules
- * ********************************* */
-validate.registrationRules = () => {
+// Registration validation rules
+function registrationRules() {
   return [
-    // firstname is required and must be string
     body("account_firstname")
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
       .withMessage("Please provide a first name."),
-
-    // lastname is required and must be string
     body("account_lastname")
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 2 })
       .withMessage("Please provide a last name."),
-
-    // valid email is required and cannot already exist in the database
     body("account_email")
       .trim()
       .isEmail()
@@ -37,8 +30,6 @@ validate.registrationRules = () => {
           throw new Error("Email exists. Please log in or use a different email")
         }
       }),
-
-    // password is required and must be strong
     body("account_password")
       .trim()
       .notEmpty()
@@ -53,10 +44,7 @@ validate.registrationRules = () => {
   ]
 }
 
-/* ******************************
- * Check data and return errors or continue to registration
- * ***************************** */
-validate.checkRegData = async (req, res, next) => {
+async function checkRegData(req, res, next) {
   const { account_firstname, account_lastname, account_email } = req.body
   let errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -74,7 +62,38 @@ validate.checkRegData = async (req, res, next) => {
   next()
 }
 
-const updateAccountRules = () => {
+// Add similar definitions for loginRules, checkLoginData, updateAccountRules, checkUpdateData, updatePasswordRules, checkPasswordData
+// For example:
+function loginRules() {
+  return [
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("A valid email is required."),
+    body("account_password")
+      .trim()
+      .notEmpty()
+      .withMessage("Password is required."),
+  ]
+}
+
+async function checkLoginData(req, res, next) {
+  let errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/login", {
+      title: "Login",
+      nav,
+      errors,
+      account_email: req.body.account_email,
+    })
+    return
+  }
+  next()
+}
+
+function updateAccountRules() {
   return [
     body("account_firstname").trim().notEmpty().withMessage("First name is required."),
     body("account_lastname").trim().notEmpty().withMessage("Last name is required."),
@@ -88,9 +107,24 @@ const updateAccountRules = () => {
         }
       }),
   ];
-};
+}
 
-const updatePasswordRules = () => {
+async function checkUpdateData(req, res, next) {
+  let errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors,
+      ...req.body,
+    })
+    return
+  }
+  next()
+}
+
+function updatePasswordRules() {
   return [
     body("account_password")
       .trim()
@@ -102,7 +136,32 @@ const updatePasswordRules = () => {
         minSymbols: 1,
       }).withMessage("Password must be strong (12+ chars, upper/lowercase, number, symbol)."),
   ];
-};
+}
 
+async function checkPasswordData(req, res, next) {
+  let errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update-password", {
+      title: "Update Password",
+      nav,
+      errors,
+      ...req.body,
+    })
+    return
+  }
+  next()
+}
 
-module.exports = validate
+// Export all functions
+module.exports = {
+  invValidate,
+  registrationRules,
+  checkRegData,
+  loginRules,
+  checkLoginData,
+  updateAccountRules,
+  checkUpdateData,
+  updatePasswordRules,
+  checkPasswordData
+}

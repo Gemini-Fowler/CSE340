@@ -6,11 +6,13 @@ const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser")
 const baseController = require("./controllers/baseController");
 const utilities = require("./utilities");
-const invRoutes = require("./routes/inventoryRoute");
+const inventoryRoute = require("./routes/inventoryRoute");
 const errorRoute = require("./routes/errorRoute");
 const errorHandler = require("./utilities/errorHandler");
 const cookieParser = require("cookie-parser")
 const app = express();
+
+
 
 /* ***********************
  * Middleware
@@ -57,7 +59,7 @@ app.use(express.static("public"));
  * Routes
  ****************************************** */
 app.get("/", baseController.buildHome);
-app.use("/inventory", invRoutes);
+app.use("/inv", inventoryRoute);
 app.use("/error", errorRoute);
 app.use("/account", require("./routes/accountRoute"))
 

@@ -1,3 +1,24 @@
+const invValidate = {};
+
+
+invValidate.addInventoryRules = function () {
+  const { body } = require("express-validator");
+  return [
+    body("inv_make")
+      .trim()
+      .notEmpty()
+      .withMessage("Make is required."),
+    body("inv_model")
+      .trim()
+      .notEmpty()
+      .withMessage("Model is required."),
+    body("inv_year")
+      .trim()
+      .isLength({ min: 4, max: 4 })
+      .withMessage("Year must be 4 digits."),
+  ];
+};
+
 // Inventory validation handler for adding new inventory
 invValidate.checkAddInventoryData = async (req, res, next) => {
   const errors = validationResult(req);
@@ -16,6 +37,25 @@ invValidate.checkAddInventoryData = async (req, res, next) => {
     return;
   }
   next();
+};
+
+invValidate.updateInventoryRules = function () {
+  const { body } = require("express-validator");
+  return [
+    body("inv_make")
+      .trim()
+      .notEmpty()
+      .withMessage("Make is required."),
+    body("inv_model")
+      .trim()
+      .notEmpty()
+      .withMessage("Model is required."),
+    body("inv_year")
+      .trim()
+      .isLength({ min: 4, max: 4 })
+      .withMessage("Year must be 4 digits."),
+    // Add more validation rules as needed
+  ];
 };
 
 // Inventory validation handler for updating inventory
@@ -61,3 +101,4 @@ invValidate.checkUpdateData = async (req, res, next) => {
   }
   next();
 };
+module.exports = invValidate;

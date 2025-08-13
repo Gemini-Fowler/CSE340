@@ -1,5 +1,16 @@
 const pool = require("../database");
 
+const getInventoryByClassificationId = async (classification_id) => {
+  try {
+    const sql = "SELECT * FROM inventory WHERE classification_id = $1";
+    const result = await pool.query(sql, [classification_id]);
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching inventory by classification ID:", error);
+    throw error;
+  }
+};
+
 const getVehicleById = async (invId) => {
   try {
     const sql = "SELECT * FROM inventory WHERE inv_id = $1";
@@ -107,5 +118,6 @@ module.exports = {
   addClassification,
   addInventoryItem,
   updateInventory,
-  deleteInventoryItem
+  deleteInventoryItem,
+  getInventoryByClassificationId
 };
