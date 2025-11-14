@@ -3,18 +3,22 @@
 -- =====================================================
 
 -- Drop existing objects if they exist (for rebuild purposes)
-DROP TABLE IF EXISTS inventory;
-DROP TABLE IF EXISTS classification;
-DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS inventory CASCADE;
+DROP TABLE IF EXISTS classification CASCADE;
+DROP TABLE IF EXISTS account CASCADE;
+DROP TYPE IF EXISTS account_type CASCADE;
+
+-- Create the account_type ENUM
+CREATE TYPE account_type AS ENUM ('Client', 'Employee', 'Admin');
 
 -- Create account table
 CREATE TABLE account (
-  account_id INT IDENTITY(1,1) PRIMARY KEY,
+  account_id SERIAL PRIMARY KEY,
   account_firstname VARCHAR(20) NOT NULL,
   account_lastname VARCHAR(30) NOT NULL,
   account_email VARCHAR(60) NOT NULL UNIQUE,
   account_password VARCHAR(60) NOT NULL,
-  account_type VARCHAR(20) DEFAULT 'Client' CHECK (account_type IN ('Client', 'Employee', 'Admin')),
+  account_type account_type DEFAULT 'Client',
   CONSTRAINT valid_email CHECK (account_email LIKE '%@%.%')
 );
 
