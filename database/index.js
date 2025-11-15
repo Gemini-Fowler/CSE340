@@ -1,13 +1,5 @@
 const { Pool } = require("pg")
 require("dotenv").config()
-
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
 /* ***************
  * Connection Pool
  * SSL Object needed for local testing of app
