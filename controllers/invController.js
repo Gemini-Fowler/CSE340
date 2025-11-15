@@ -19,4 +19,36 @@ invCont.buildByClassificationId = async function (req, res, next) {
     })
 }
 
+/* ***************************
+ *  Build inventory detail view
+ * ************************** */
+invCont.buildByInvId = async function (req, res, next) {
+    const inv_id = req.params.invId
+    const vehicle = await invModel.getInventoryById(inv_id)
+    const detail = await utilities.buildDetailView(vehicle)
+    let nav = await utilities.getNav()
+    if (!vehicle) {
+        res.status(404).render("errors/error", {
+            title: 404,
+            message: 'Sorry, that vehicle could not be found.',
+            nav,
+        })
+        return
+    }
+    const title = vehicle.inv_make + " " + vehicle.inv_model
+    res.render("./inventory/detail", {
+        title,
+        nav,
+        detail,
+    })
+}
+
+/* ***************************
+ *  Intentional error route for testing
+ * ************************** */
+invCont.throwError = async function (req, res, next) {
+    // throw an error to test the error handler
+    throw new Error('Intentional server error for testing')
+}
+
 module.exports = invCont

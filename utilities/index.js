@@ -57,4 +57,30 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+/* ***************************************
+* Build the detail view HTML for a vehicle
+* ***************************************/
+Util.buildDetailView = async function (vehicle) {
+    if (!vehicle) return '<p class="notice">Sorry, that vehicle could not be found.</p>'
+    let detail = '<div class="vehicle-detail">'
+    detail += '<div class="vehicle-image">'
+    detail += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + '" />'
+    detail += '</div>'
+    detail += '<div class="vehicle-info">'
+    detail += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + '</h2>'
+    detail += '<p class="year-price"><strong>' + vehicle.inv_year + '</strong> &nbsp; <span class="price">$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span></p>'
+    detail += '<p class="mileage">Mileage: ' + (vehicle.inv_mileage ? new Intl.NumberFormat('en-US').format(vehicle.inv_mileage) : 'Unknown') + '</p>'
+    detail += '<p class="description">' + vehicle.inv_description + '</p>'
+    detail += '</div>'
+    detail += '</div>'
+    return detail
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 module.exports = Util

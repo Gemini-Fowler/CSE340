@@ -170,6 +170,33 @@ footer {
   color: var(--text);
 }
 
+/* Vehicle detail styles */
+.vehicle-detail {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.vehicle-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.vehicle-info {
+  padding: 0.5rem 0;
+}
+
+.vehicle-info h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+.year-price { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.price { color: var(--secondary); font-weight: 700; }
+.mileage { color: #666; margin-bottom: 0.75rem; }
+.description { line-height: 1.5; }
+
 /* Media Queries */
 @media screen and (min-width: 768px) {
   #wrapper {
@@ -211,5 +238,11 @@ footer {
 
   .gallery {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Vehicle detail large screen */
+  .vehicle-detail {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 }
