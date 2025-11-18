@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add New Classification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script>
+    function validateForm() {
+      const input = document.getElementById("classification_name").value;
+      const regex = /^[a-zA-Z0-9]+$/;
+      if (!regex.test(input)) {
+        alert("Classification name must contain only letters and numbers. No spaces or special characters allowed.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</head>
+<body>
+  <%- nav %>
+
+  <main>
+    <h1>Add New Classification</h1>
+
+    <% if (message) { %>
+      <div class="flash-message"><%= message %></div>
+    <% } %>
+
+    <% if (errors && errors.length > 0) { %>
+      <ul class="error-list">
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <form action="/inv/add-classification" method="post" onsubmit="return validateForm()">
+      <label for="classification_name">Classification Name:</label>
+      <input type="text" id="classification_name" name="classification_name" required>
+      <button type="submit">Add Classification</button>
+    </form>
+  </main>
+</body>
+</html>

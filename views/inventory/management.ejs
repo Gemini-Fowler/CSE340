@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventory Management</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <%- nav %> 
+
+  <main>
+    <h1>Inventory Management</h1>
+
+    <% if (message) { %>
+      <div class="flash-message"><%= message %></div>
+    <% } %>
+
+    <ul class="management-links">
+      <li>
+        <a href="/inv/add-classification">Add New Classification</a>
+      </li>
+      <li>
+        <a href="/inv/add-inventory">Add New Inventory</a>
+      </li>
+    </ul>
+
+    <!-- Inventory Manager Section -->
+    <h2>Manage Inventory</h2>
+    <p>Select a classification from the list to see the items belonging to that classification.</p>
+
+    <%- classificationSelect %>
+
+    <table id="inventoryDisplay"></table>
+
+    <noscript>JavaScript must be enabled to use this page.</noscript>
+  </main>
+
+  <!-- ✅ Link to external JavaScript file -->
+  <script src="../../js/inventory.js"></script>
+</body>
+</html>

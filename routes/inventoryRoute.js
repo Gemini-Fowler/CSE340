@@ -1,25 +1,79 @@
-// Needed Resources 
-const express = require("express")
-const router = new express.Router()
-const invController = require("../controllers/invController")
-const utilities = require("../utilities/")
+const express = require("express");
+const router = express.Router();
+const inventoryController = require("../controllers/inventoryController");
+const invValidation = require("../utilities/inventory-validation");
+const utilities = require("../utilities");
+const { check } = require("express-validator");
 
-// Route to build inventory by classification view
+// ✅ New route: Returns inventory data as JSON based on classification ID
 router.get(
-    "/type/:classificationId",
-    utilities.handleErrors(invController.buildByClassificationId)
-)
+  "/type/:classification_id",
+  utilities.handleErrors(inventoryController.getInventoryJSON)
+);
 
-// Route to build inventory detail view
+// Route to build inventory by classification view (HTML)
 router.get(
-    "/detail/:invId",
-    utilities.handleErrors(invController.buildByInvId)
-)
+  "/type/html/:classificationId",
+  utilities.handleErrors(inventoryController.buildByClassificationId)
+);
 
-// Route to intentionally trigger a server error (for testing)
+// ✅ Update existing inventory item (protected)
+router.post(
+  "/update",
+  utilities.checkAccountType,
+  invValidation.updateInventoryRules(),
+  invValidation.checkUpdateData,
+  utilities.handleErrors(inventoryController.updateInventory)
+);
+
+// ✅ Delete confirmation view (protected)
 router.get(
-    "/trigger-error",
-    utilities.handleErrors(invController.throwError)
-)
+  "/delete/:inv_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(inventoryController.buildDeleteConfirmation)
+);
 
-module.exports = router
+// ✅ Perform delete operation (protected)
+router.post(
+  "/delete",
+  utilities.checkAccountType,
+  utilities.handleErrors(inventoryController.deleteInventory)
+);
+
+// Route to display vehicle details by ID
+router.get("/detail/:invId", inventoryController.buildDetailView);
+
+// Management dashboard (protected)
+router.get("/", utilities.checkAccountType, inventoryController.buildManagement);
+
+// Classification form (protected)
+router.get("/add-classification", utilities.checkAccountType, inventoryController.buildAddClassification);
+
+// Inventory form (protected)
+router.get("/add-inventory", utilities.checkAccountType, inventoryController.buildAddInventory);
+
+// Classification insert (protected)
+router.post(
+  "/add-classification",
+  utilities.checkAccountType,
+  [
+    check("classification_name")
+      .trim()
+      .isAlphanumeric()
+      .withMessage("Classification name must only contain letters and numbers.")
+      .notEmpty()
+      .withMessage("Classification name is required.")
+  ],
+  inventoryController.insertClassification
+);
+
+// Vehicle insert (protected)
+router.post(
+  "/add-inventory",
+  utilities.checkAccountType,
+  invValidation.addInventoryRules(),
+  invValidation.checkAddInventoryData,
+  inventoryController.addInventory
+);
+
+module.exports = router;
