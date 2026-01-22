@@ -1,11 +1,12 @@
-/******* Change Box Model ***************/
+/* ===================================
+   UNIVERSAL STYLES & BOX MODEL
+   =================================== */
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
-/* Base styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -20,7 +21,9 @@ body {
   background-color: white;
 }
 
-/* Header */
+/* ===================================
+   HEADER STYLES
+   =================================== */
 header {
   background-color: #007bff;
   color: white;
@@ -52,7 +55,9 @@ header {
   text-decoration: none;
 }
 
-/* Navigation */
+/* ===================================
+   NAVIGATION STYLES
+   =================================== */
 nav ul {
   list-style: none;
   padding: 0;
@@ -77,7 +82,9 @@ nav a:hover {
   background-color: #555;
 }
 
-/* Main content */
+/* ===================================
+   MAIN CONTENT & LAYOUT
+   =================================== */
 main {
   padding: 20px;
 }
@@ -117,6 +124,9 @@ main {
   color: #007bff;
 }
 
+/* ===================================
+   UPGRADES SECTION
+   =================================== */
 .upgrades h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -142,7 +152,9 @@ main {
   margin-bottom: 10px;
 }
 
-/* Footer */
+/* ===================================
+   FOOTER STYLES
+   =================================== */
 footer {
   background-color: #333;
   color: white;
@@ -154,7 +166,9 @@ footer p {
   margin: 0;
 }
 
-/* Media queries */
+/* ===================================
+   RESPONSIVE DESIGN (768px+)
+   =================================== */
 @media screen and (min-width: 768px) {
   nav ul {
     flex-direction: row;
