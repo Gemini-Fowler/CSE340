@@ -66,3 +66,32 @@ Util.buildClassificationGrid = async function (data) {
     }
     return grid
 }
+
+/* **************************************
+ * Build the vehicle detail view HTML
+ * ************************************ */
+Util.buildVehicleDetail = function (data) {
+    let detail = '<div class="vehicle-detail-container">'
+    detail += '<div class="vehicle-image">'
+    detail += '<img src="' + data.inv_image + '" alt="Image of ' + data.inv_make + ' ' + data.inv_model + ' on CSE Motors" />'
+    detail += '</div>'
+    detail += '<div class="vehicle-info">'
+    detail += '<h2>' + data.inv_make + ' ' + data.inv_model + '</h2>'
+    detail += '<p class="vehicle-price">Price: $' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</p>'
+    detail += '<p class="vehicle-year">Year: ' + data.inv_year + '</p>'
+    detail += '<p class="vehicle-mileage">Mileage: ' + new Intl.NumberFormat('en-US').format(data.inv_miles) + ' miles</p>'
+    detail += '<hr />'
+    detail += '<h3>Vehicle Details</h3>'
+    detail += '<ul class="details-list">'
+    detail += '<li><strong>Make:</strong> ' + data.inv_make + '</li>'
+    detail += '<li><strong>Model:</strong> ' + data.inv_model + '</li>'
+    detail += '<li><strong>Year:</strong> ' + data.inv_year + '</li>'
+    detail += '<li><strong>Color:</strong> ' + data.inv_color + '</li>'
+    detail += '<li><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(data.inv_miles) + ' miles</li>'
+    detail += '<li><strong>Price:</strong> $' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</li>'
+    detail += '<li><strong>Description:</strong> ' + data.inv_description + '</li>'
+    detail += '</ul>'
+    detail += '</div>'
+    detail += '</div>'
+    return detail
+}

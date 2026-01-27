@@ -213,6 +213,78 @@ footer p {
 }
 
 /* ===================================
+   VEHICLE DETAIL PAGE STYLES
+   =================================== */
+.vehicle-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.vehicle-image {
+  width: 100%;
+  text-align: center;
+}
+
+.vehicle-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-info {
+  flex: 1;
+}
+
+.vehicle-info h2 {
+  font-size: 2em;
+  margin: 0 0 20px 0;
+  color: #007bff;
+}
+
+.vehicle-price {
+  font-size: 1.5em;
+  color: #28a745;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.vehicle-year {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: #333;
+}
+
+.vehicle-mileage {
+  font-size: 1.1em;
+  margin: 10px 0;
+  color: #555;
+}
+
+.details-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.details-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1em;
+}
+
+.details-list li:last-child {
+  border-bottom: none;
+}
+
+.details-list strong {
+  color: #007bff;
+  min-width: 100px;
+}
+
+/* ===================================
    RESPONSIVE DESIGN (768px+)
    =================================== */
 @media screen and (min-width: 768px) {
@@ -250,5 +322,26 @@ footer p {
   .upgrade {
     flex: 0 1 200px;
     margin: 10px;
+  }
+
+  /* Vehicle detail side-by-side layout for larger screens */
+  .vehicle-detail-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .vehicle-image {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .vehicle-info {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .vehicle-image img {
+    max-width: 100%;
   }
 }
