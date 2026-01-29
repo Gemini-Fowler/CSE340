@@ -9,7 +9,7 @@
     <% } %>
 
         <div class="register-container">
-            <form method="POST" action="/account/register">
+            <form action="/account/register" method="post">
                 <div class="form-group">
                     <label for="firstname">First name</label>
                     <input type="text" id="firstname" name="account_firstname"
@@ -50,98 +50,3 @@
                 </div>
             </form>
         </div>
-
-        <style>
-            .register-container {
-                max-width: 500px;
-                margin: 40px auto;
-                background-color: white;
-                padding: 30px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-            }
-
-            .form-group {
-                margin-bottom: 20px;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .form-group label {
-                margin-bottom: 8px;
-                font-weight: bold;
-                font-size: 1em;
-                color: #333;
-            }
-
-            .form-group input {
-                padding: 12px;
-                border: 1px solid #333;
-                border-radius: 4px;
-                font-size: 1em;
-                font-family: Arial, sans-serif;
-            }
-
-            .form-group input:focus {
-                outline: none;
-                box-shadow: 0 0 5px #007bff;
-            }
-
-            .password-requirements {
-                margin-top: 10px;
-                background-color: #f9f9f9;
-                padding: 12px;
-                border-radius: 4px;
-                border-left: 4px solid #007bff;
-            }
-
-            .password-requirements p {
-                margin: 0 0 8px 0;
-                font-size: 0.95em;
-                color: #333;
-            }
-
-            .password-requirements ul {
-                margin: 0;
-                padding-left: 20px;
-                font-size: 0.9em;
-                color: #666;
-            }
-
-            .password-requirements li {
-                margin-bottom: 4px;
-            }
-
-            .form-actions {
-                text-align: center;
-                margin: 30px 0 20px 0;
-            }
-
-            .btn-register {
-                background-color: #007bff;
-                color: white;
-                border: none;
-                padding: 12px 40px;
-                border-radius: 25px;
-                font-weight: bold;
-                cursor: pointer;
-                font-size: 1em;
-                transition: background-color 0.3s ease;
-            }
-
-            .btn-register:hover {
-                background-color: #0056b3;
-            }
-
-            .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border-radius: 4px;
-            }
-
-            .alert-danger {
-                background-color: #f8d7da;
-                color: #721c24;
-                border: 1px solid #f5c6cb;
-            }
-        </style>
