@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="account_password" placeholder="Password" required>
+                    <input type="password" id="password" name="account_password" placeholder="Password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
                     <div class="password-requirements">
                         <p><strong>Password must contain:</strong></p>
                         <ul>
