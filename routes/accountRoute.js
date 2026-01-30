@@ -11,6 +11,14 @@ router.get("/", utilities.handleErrors(accountController.buildLogin))
 // Route to build registration view
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
+// Process the login request
+router.post(
+    "/login",
+    (req, res) => {
+        res.status (200).send("login process")
+    }
+)
+
 module.exports = router
 
 router.post(

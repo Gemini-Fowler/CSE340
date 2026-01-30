@@ -20,9 +20,7 @@
             <form action="/account/register" method="post">
                 <div class="form-group">
                     <label for="firstname">First name</label>
-                    <input type="text" id="firstname" name="account_firstname"
-                        value="<%= typeof account_firstname !== 'undefined' ? account_firstname : '' %>"
-                        placeholder="First name" required>
+                    <input type="text" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>">
                 </div>
 
                 <div class="form-group">
