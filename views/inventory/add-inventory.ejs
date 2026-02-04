@@ -1,0 +1,160 @@
+<h1>
+    <%= title %>
+</h1>
+
+<% if (typeof messages !=='undefined' && messages.notice) { %>
+    <div class="alert alert-notice">
+        <%= messages.notice %>
+    </div>
+    <% } %>
+
+        <% if (typeof messages !=='undefined' && messages.error) { %>
+            <div class="alert alert-danger">
+                <%= messages.error %>
+            </div>
+            <% } %>
+
+                <!-- Validation errors (express-validator) -->
+                <% if (errors) { %>
+                    <ul class="notice">
+                        <% errors.array().forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
+
+                        <div class="form-container">
+                            <form id="addInventoryForm" action="/inv/add-inventory" method="post">
+
+                                <!-- Classification Dropdown -->
+                                <div class="form-group">
+                                    <label for="classificationList">Classification:</label>
+                                    <%- classificationList %>
+                                </div>
+
+                                <!-- Make -->
+                                <div class="form-group">
+                                    <label for="inv_make">Make:</label>
+                                    <input type="text" id="inv_make" name="inv_make" required
+                                        value="<%= locals.inv_make || '' %>"
+                                        placeholder="Enter vehicle make (e.g., Ford, Toyota)">
+                                </div>
+
+                                <!-- Model -->
+                                <div class="form-group">
+                                    <label for="inv_model">Model:</label>
+                                    <input type="text" id="inv_model" name="inv_model" required
+                                        value="<%= locals.inv_model || '' %>" placeholder="Enter vehicle model">
+                                </div>
+
+                                <!-- Year -->
+                                <div class="form-group">
+                                    <label for="inv_year">Year:</label>
+                                    <input type="text" id="inv_year" name="inv_year" required pattern="\d{4}"
+                                        maxlength="4" title="Year must be 4 digits" value="<%= locals.inv_year || '' %>"
+                                        placeholder="YYYY">
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group">
+                                    <label for="inv_description">Description:</label>
+                                    <textarea id="inv_description" name="inv_description" required rows="4"
+                                        placeholder="Enter vehicle description"><%= locals.inv_description || '' %></textarea>
+                                </div>
+
+                                <!-- Image Path -->
+                                <div class="form-group">
+                                    <label for="inv_image">Image Path:</label>
+                                    <input type="text" id="inv_image" name="inv_image" required
+                                        value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>"
+                                        placeholder="/images/vehicles/no-image.png">
+                                    <span class="form-hint">Path to full-size image</span>
+                                </div>
+
+                                <!-- Thumbnail Path -->
+                                <div class="form-group">
+                                    <label for="inv_thumbnail">Thumbnail Path:</label>
+                                    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
+                                        value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>"
+                                        placeholder="/images/vehicles/no-image-tn.png">
+                                    <span class="form-hint">Path to thumbnail image</span>
+                                </div>
+
+                                <!-- Price -->
+                                <div class="form-group">
+                                    <label for="inv_price">Price:</label>
+                                    <input type="number" id="inv_price" name="inv_price" required min="0" step="1"
+                                        value="<%= locals.inv_price || '' %>" placeholder="Enter price (numbers only)">
+                                </div>
+
+                                <!-- Miles -->
+                                <div class="form-group">
+                                    <label for="inv_miles">Miles:</label>
+                                    <input type="number" id="inv_miles" name="inv_miles" required min="0" step="1"
+                                        value="<%= locals.inv_miles || '' %>" placeholder="Enter mileage">
+                                </div>
+
+                                <!-- Color -->
+                                <div class="form-group">
+                                    <label for="inv_color">Color:</label>
+                                    <input type="text" id="inv_color" name="inv_color" required
+                                        value="<%= locals.inv_color || '' %>" placeholder="Enter vehicle color">
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary">Add Vehicle</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <script>
+                            // Client-side validation
+                            document.getElementById('addInventoryForm').addEventListener('submit', function (e) {
+                                const year = document.getElementById('inv_year').value;
+                                const price = document.getElementById('inv_price').value;
+                                const miles = document.getElementById('inv_miles').value;
+                                const classification = document.getElementById('classificationList').value;
+
+                                // Validate year
+                                if (!/^\d{4}$/.test(year)) {
+                                    e.preventDefault();
+                                    alert('Year must be exactly 4 digits.');
+                                    return false;
+                                }
+
+                                // Validate classification selected
+                                if (!classification) {
+                                    e.preventDefault();
+                                    alert('Please select a classification.');
+                                    return false;
+                                }
+
+                                // Validate price
+                                if (isNaN(price) || price < 0) {
+                                    e.preventDefault();
+                                    alert('Price must be a positive number.');
+                                    return false;
+                                }
+
+                                // Validate miles
+                                if (isNaN(miles) || miles < 0) {
+                                    e.preventDefault();
+                                    alert('Miles must be a positive number.');
+                                    return false;
+                                }
+                            });
+
+                            // Real-time validation for year
+                            document.getElementById('inv_year').addEventListener('input', function (e) {
+                                const value = e.target.value;
+                                if (value && !/^\d{0,4}$/.test(value)) {
+                                    e.target.setCustomValidity('Year must be 4 digits');
+                                    e.target.style.borderColor = 'red';
+                                } else {
+                                    e.target.setCustomValidity('');
+                                    e.target.style.borderColor = '';
+                                }
+                            });
+                        </script>

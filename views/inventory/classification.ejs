@@ -1,9 +1,17 @@
-<% if (title) { %>
-<h1><%= title %></h1>
-<% } else { 
-    res.redirect("/")
-}%>
+<h1>
+    <%= title %>
+</h1>
 
-<%# messages() %>
+<% if (typeof messages !=='undefined' && messages.notice) { %>
+    <div class="alert alert-notice">
+        <%= messages.notice %>
+    </div>
+    <% } %>
 
-<%- grid %>
+        <% if (typeof messages !=='undefined' && messages.error) { %>
+            <div class="alert alert-danger">
+                <%= messages.error %>
+            </div>
+            <% } %>
+
+                <%- grid %>

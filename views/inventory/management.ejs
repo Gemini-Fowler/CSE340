@@ -1,0 +1,36 @@
+<h1>
+    <%= title %>
+</h1>
+
+<% if (typeof messages !=='undefined' && messages.success) { %>
+    <div class="alert alert-success">
+        <%= messages.success %>
+    </div>
+    <% } %>
+
+        <% if (typeof messages !=='undefined' && messages.notice) { %>
+            <div class="alert alert-notice">
+                <%= messages.notice %>
+            </div>
+            <% } %>
+
+                <% if (typeof messages !=='undefined' && messages.error) { %>
+                    <div class="alert alert-danger">
+                        <%= messages.error %>
+                    </div>
+                    <% } %>
+
+                        <div class="inventory-management-container">
+                            <section class="management-section">
+                                <h2>Manage Inventory Classifications</h2>
+                                <p>Add a new vehicle classification to organize inventory.</p>
+                                <a href="/inv/add-classification" class="btn btn-primary">Add New
+                                    Classification</a>
+                            </section>
+
+                            <section class="management-section">
+                                <h2>Manage Inventory Items</h2>
+                                <p>Add a new vehicle to the inventory system.</p>
+                                <a href="/inv/add-inventory" class="btn btn-primary">Add New Inventory</a>
+                            </section>
+                        </div>
