@@ -6,7 +6,6 @@ const Util = {}
  ************************** */
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
-    console.log(data)
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
     data.rows.forEach((row) => {
@@ -27,16 +26,13 @@ Util.getNav = async function (req, res, next) {
 
 /* ****************************************
  * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
  **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-module.exports = Util
+Util.handleErrors = fn => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next)
 
 /* **************************************
 * Build the classification view HTML
-* ************************************ */
+*************************************** */
 Util.buildClassificationGrid = async function (data) {
     let grid
     if (data.length > 0) {
@@ -62,14 +58,14 @@ Util.buildClassificationGrid = async function (data) {
         })
         grid += '</ul>'
     } else {
-        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+        grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
 }
 
 /* **************************************
  * Build the vehicle detail view HTML
- * ************************************ */
+ *************************************** */
 Util.buildVehicleDetail = function (data) {
     let detail = '<div class="vehicle-detail-container">'
     detail += '<div class="vehicle-image">'
@@ -95,3 +91,5 @@ Util.buildVehicleDetail = function (data) {
     detail += '</div>'
     return detail
 }
+
+module.exports = Util   // <-- EXPORT AT THE VERY END

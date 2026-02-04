@@ -25,12 +25,13 @@ body {
    HEADER STYLES
    =================================== */
 header {
-  background-color: #007bff;
+  background: linear-gradient(90deg, #0056b3, #007bff);
   color: white;
-  padding: 10px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .siteName {
@@ -53,40 +54,58 @@ header {
 #tools a {
   color: white;
   text-decoration: none;
+  background-color: rgba(255,255,255,0.15);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: background-color 0.25s ease;
+}
+
+#tools a:hover {
+  background-color: rgba(255,255,255,0.3);
 }
 
 /* ===================================
    NAVIGATION STYLES
    =================================== */
+nav {
+  background-color: #222;
+  border-bottom: 3px solid #007bff;
+}
+
 nav ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  background-color: #333;
+  justify-content: center;
+  gap: 10px;
 }
 
 nav li {
-  border-bottom: 1px solid #555;
+  margin: 0;
 }
 
 nav a {
   display: block;
-  padding: 10px;
+  padding: 12px 18px;
   color: white;
   text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.25s ease;
 }
 
 nav a:hover {
-  background-color: #555;
+  background-color: #007bff;
 }
 
 /* ===================================
    MAIN CONTENT & LAYOUT
    =================================== */
 main {
-  padding: 20px;
+  padding: 40px 20px;
+  line-height: 1.6;
 }
 
 .hero img {
@@ -99,13 +118,14 @@ main {
   margin-bottom: 20px;
 }
 
+/* Modern responsive grid */
 .grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
 
 .vehicle-type {
-  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -156,10 +176,12 @@ main {
    FOOTER STYLES
    =================================== */
 footer {
-  background-color: #333;
-  color: white;
+  background-color: #222;
+  color: #ccc;
   text-align: center;
-  padding: 10px;
+  padding: 20px;
+  font-size: 0.9em;
+  border-top: 3px solid #007bff;
 }
 
 footer p {
@@ -288,31 +310,6 @@ footer p {
    RESPONSIVE DESIGN (768px+)
    =================================== */
 @media screen and (min-width: 768px) {
-  nav ul {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  nav li {
-    border-bottom: none;
-    border-right: 1px solid #555;
-  }
-
-  nav li:last-child {
-    border-right: none;
-  }
-
-  .grid {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  .vehicle-type {
-    flex: 0 1 45%;
-    margin-bottom: 40px;
-  }
-
   .upgrade-list {
     flex-direction: row;
     flex-wrap: wrap;
@@ -324,7 +321,6 @@ footer p {
     margin: 10px;
   }
 
-  /* Vehicle detail side-by-side layout for larger screens */
   .vehicle-detail-container {
     flex-direction: row;
     align-items: flex-start;
@@ -340,105 +336,118 @@ footer p {
     flex: 1;
     min-width: 300px;
   }
-
-  .vehicle-image img {
-    max-width: 100%;
-  }
 }
 
 /* ===================================
-   REGISTRATION PAGE STYLES
+   LOGIN & REGISTRATION FORMS
    =================================== */
-
+.login-container,
 .register-container {
-    max-width: 500px;
-    margin: 40px auto;
-    background-color: white;
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+  max-width: 450px;
+  margin: 50px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-  .form-group {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-    margin-bottom: 8px;
-    font-weight: bold;
-    font-size: 1em;
-    color: #333;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
 }
 
 .form-group input {
-     padding: 12px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    font-size: 1em;
-    font-family: Arial, sans-serif;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-size: 1em;
 }
 
 .form-group input:focus {
-    outline: none;
-    box-shadow: 0 0 5px #007bff;
+  outline: none;
+  box-shadow: 0 0 5px #007bff;
 }
 
 .password-requirements {
-    margin-top: 10px;
-    background-color: #f9f9f9;
-    padding: 12px;
-    border-radius: 4px;
-    border-left: 4px solid #007bff;
-}
-
-.password-requirements p {
-    margin: 0 0 8px 0;
-    font-size: 0.95em;
-    color: #333;
+  margin-top: 10px;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 4px solid #007bff;
 }
 
 .password-requirements ul {
-    margin: 0;
-    padding-left: 20px;
-    font-size: 0.9em;
-    color: #666;
-}
-
-.password-requirements li {
-    margin-bottom: 4px;
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9em;
+  color: #666;
 }
 
 .form-actions {
-    text-align: center;
-    margin: 30px 0 20px 0;
+  text-align: center;
+  margin: 30px 0 20px 0;
 }
 
+.btn-login,
 .btn-register {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 40px;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
+.btn-login:hover,
 .btn-register:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
 }
 
 .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ===================================
+   OPTIONAL DARK MODE
+   =================================== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ddd;
+  }
+
+  header, nav, footer {
+    background-color: #1e1e1e;
+  }
+
+  nav a:hover {
+    background-color: #333;
+  }
+
+  .register-container,
+  .login-container {
+    background-color: #1e1e1e;
+    border-color: #333;
+  }
 }
