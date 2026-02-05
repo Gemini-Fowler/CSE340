@@ -26,7 +26,7 @@
                     <% } %>
 
                         <div class="form-container">
-                            <form id="editInventoryForm" action="/inv/update" method="post">
+                            <form id="updateForm" action="/inv/update" method="post">
 
                                 <!-- Classification Dropdown -->
                                 <div class="form-group">
@@ -107,14 +107,14 @@
                                 <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn-primary">Update Vehicle</button>
+                                    <button type="submit" class="btn-primary" disabled>Update Vehicle</button>
                                 </div>
                             </form>
                         </div>
 
                         <script>
                             // Client-side validation
-                            document.getElementById('editInventoryForm').addEventListener('submit', function (e) {
+                            document.getElementById('updateForm').addEventListener('submit', function (e) {
                                 const year = document.getElementById('inv_year').value;
                                 const price = document.getElementById('inv_price').value;
                                 const miles = document.getElementById('inv_miles').value;
@@ -161,3 +161,5 @@
                                 }
                             });
                         </script>
+
+                        <script src="../../js/inv-update.js"></script>

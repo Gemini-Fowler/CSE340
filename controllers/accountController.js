@@ -125,10 +125,26 @@ async function accountLogin(req, res) {
   }
 }
 
+/* ****************************************
+ *  Process guest login request
+ * ************************************ */
+async function guestLogin(req, res, next) {
+  let nav = await utilities.getNav()
+  const guestToken = jwt.sign({ account_type: "Guest", isGuest: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
+  if(process.env.NODE_ENV === 'development') {
+    res.cookie("jwt", guestToken, { httpOnly: true, maxAge: 3600 * 1000 })
+  } else {
+    res.cookie("jwt", guestToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+  }
+  req.flash("notice", "Welcome! You are browsing as a guest.")
+  return res.redirect("/inv/")
+}
+
 module.exports = {
   buildLogin,
   buildRegister,
   buildAccount,
   registerAccount,
-  accountLogin
+  accountLogin,
+  guestLogin
 }

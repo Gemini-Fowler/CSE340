@@ -22,6 +22,12 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 )
 
+// Process guest login
+router.post(
+  "/guest",
+  utilities.handleErrors(accountController.guestLogin)
+)
+
 // Process registration
 router.post(
   "/register",
