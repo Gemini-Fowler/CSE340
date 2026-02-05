@@ -131,7 +131,7 @@ async function accountLogin(req, res) {
 async function guestLogin(req, res, next) {
   let nav = await utilities.getNav()
   const guestToken = jwt.sign({ account_type: "Guest", isGuest: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
-  if(process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     res.cookie("jwt", guestToken, { httpOnly: true, maxAge: 3600 * 1000 })
   } else {
     res.cookie("jwt", guestToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
