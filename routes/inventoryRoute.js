@@ -44,6 +44,15 @@ router.post(
     utilities.handleErrors(invController.updateInventory)
 )
 
+// Route to build delete confirmation view
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteConfirmView))
+
+// Route to process delete inventory
+router.post(
+    "/delete",
+    utilities.handleErrors(invController.deleteInventory)
+)
+
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
 
