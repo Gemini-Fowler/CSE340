@@ -1,0 +1,106 @@
+<%- include('../partials/head') %>
+
+    <body>
+        <%- include('../partials/header') %>
+            <%- include('../partials/navigation') %>
+
+                <main>
+                    <h1>
+                        <%= title %>
+                    </h1>
+
+                    <% if (typeof messages !=='undefined' && messages.notice) { %>
+                        <div class="alert alert-notice">
+                            <%= messages.notice %>
+                        </div>
+                        <% } %>
+
+                            <% if (typeof messages !=='undefined' && messages.error) { %>
+                                <div class="alert alert-danger">
+                                    <%= messages.error %>
+                                </div>
+                                <% } %>
+
+                                    <div class="appointments-management-container">
+                                        <% if (appointments && appointments.length> 0) { %>
+                                            <table class="appointments-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Customer</th>
+                                                        <th>Vehicle</th>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                        <th>Status</th>
+                                                        <th>Notes</th>
+                                                        <th>Created</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% appointments.forEach(appointment=> { %>
+                                                        <tr>
+                                                            <td>
+                                                                <%= appointment.account_firstname %>
+                                                                    <%= appointment.account_lastname %>
+                                                                        <br><small>
+                                                                            <%= appointment.account_email %>
+                                                                        </small>
+                                                            </td>
+                                                            <td>
+                                                                <%= appointment.inv_year %>
+                                                                    <%= appointment.inv_make %>
+                                                                        <%= appointment.inv_model %>
+                                                            </td>
+                                                            <td>
+                                                                <%= new
+                                                                    Date(appointment.appointment_date).toLocaleDateString()
+                                                                    %>
+                                                            </td>
+                                                            <td>
+                                                                <%= appointment.appointment_time %>
+                                                            </td>
+                                                            <td>
+                                                                <span
+                                                                    class="status-badge status-<%= appointment.status %>">
+                                                                    <%= appointment.status %>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <%= appointment.notes || 'N/A' %>
+                                                            </td>
+                                                            <td>
+                                                                <%= new
+                                                                    Date(appointment.created_at).toLocaleDateString() %>
+                                                            </td>
+                                                            <td>
+                                                                <% if (appointment.status==='scheduled' ) { %>
+                                                                    <form action="/appointments/update-status"
+                                                                        method="post" class="inline-form">
+                                                                        <input type="hidden" name="appointment_id"
+                                                                            value="<%= appointment.appointment_id %>">
+                                                                        <select name="status" class="status-select"
+                                                                            onchange="this.form.submit()">
+                                                                            <option value="scheduled" selected>Scheduled
+                                                                            </option>
+                                                                            <option value="completed">Completed</option>
+                                                                            <option value="cancelled">Cancelled</option>
+                                                                        </select>
+                                                                    </form>
+                                                                    <% } else { %>
+                                                                        <span class="text-muted">-</span>
+                                                                        <% } %>
+                                                            </td>
+                                                        </tr>
+                                                        <% }) %>
+                                                </tbody>
+                                            </table>
+                                            <% } else { %>
+                                                <p class="notice">No appointments found.</p>
+                                                <% } %>
+                                    </div>
+                </main>
+
+                <%- include('../partials/footer') %>
+    </body>
+
+    </html>

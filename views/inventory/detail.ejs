@@ -15,3 +15,18 @@
             <% } %>
 
                 <%- detail %>
+
+                    <!-- Favorites and Appointments Actions -->
+                    <% if (typeof loggedin !=='undefined' && loggedin) { %>
+                        <div class="vehicle-actions">
+                            <div id="favoriteContainer">
+                                <button id="favoriteBtn" class="btn btn-favorite" data-inv-id="<%= inventoryId %>">
+                                    ❤ Add to Favorites
+                                </button>
+                            </div>
+                            <a href="/appointments/schedule/<%= inventoryId %>" class="btn btn-primary">
+                                📅 Schedule Test Drive
+                            </a>
+                        </div>
+                        <script src="/js/favorites.js"></script>
+                        <% } %>
